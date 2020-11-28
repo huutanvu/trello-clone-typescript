@@ -14,6 +14,7 @@ export const AddNewItem = ({
   dark,
 }: AddNewItemProps) => {
   const [showForm, setShowForm] = useState(false);
+
   if (showForm) {
     return (
       <NewItemForm
