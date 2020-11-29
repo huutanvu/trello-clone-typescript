@@ -5,13 +5,16 @@ import { AppContainer } from "./AppContainer";
 import { Column } from "./Column";
 
 export const Board = () => {
-  const { state } = useAppState();
+  const { state, dispatch } = useAppState();
   return (
     <AppContainer>
-      {state.lists.map((list, i) => {
-        return <Column columnTitle={list.text} key={list.id} index={i} />;
+      {state.lists.map((list) => {
+        return <Column columnTitle={list.text} key={list.id} id={list.id} />;
       })}
-      <AddNewItem toggleButtonText="+ Add another list" onAdd={console.log} />
+      <AddNewItem
+        toggleButtonText="+ Add another list"
+        onAdd={(text) => dispatch({ type: "ADD_LIST", payload: text })}
+      />
     </AppContainer>
   );
 };

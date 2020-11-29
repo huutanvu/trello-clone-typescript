@@ -1,5 +1,6 @@
 import React from "react";
 import { useAppState } from "../hooks/useAppState";
+import { findItemByIndexById } from "../utils/helpers";
 import { AddNewItem } from "./AddNewItem";
 import { Card } from "./Card";
 import { ColumnContainer } from "./ColumnContainer";
@@ -7,14 +8,15 @@ import { ColumnTitle } from "./ColumnTitle";
 
 interface ColumnProps {
   columnTitle: string;
-  index: number;
+  id: string;
 }
 
 export const Column = ({
   columnTitle,
-  index,
+  id,
 }: React.PropsWithChildren<ColumnProps>) => {
-  const { state } = useAppState();
+  const { state, dispatch } = useAppState();
+  const index = findItemByIndexById(state.lists, id);
   return (
     <ColumnContainer>
       <ColumnTitle>{columnTitle}</ColumnTitle>
@@ -23,7 +25,9 @@ export const Column = ({
       })}
       <AddNewItem
         toggleButtonText="+ Add another task"
-        onAdd={console.log}
+        onAdd={(text) =>
+          dispatch({ type: "ADD_TASK", payload: { listId: id, text: text } })
+        }
         dark
       />
     </ColumnContainer>
