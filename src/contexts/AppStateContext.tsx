@@ -30,7 +30,7 @@ interface AppStateContextProps {
 }
 
 // We create the context:
-const AppStateContext = createContext<AppStateContextProps>({} as AppStateContextProps);
+export const AppStateContext = createContext<AppStateContextProps>({} as AppStateContextProps);
 
 // Create the provider:
 export const AppStateProvider = ({ children }: React.PropsWithChildren<{}>) => {
@@ -39,10 +39,4 @@ export const AppStateProvider = ({ children }: React.PropsWithChildren<{}>) => {
       {children}
     </AppStateContext.Provider>
   )
-}
-
-export const useAppState = () => {
-  const appState = useContext(AppStateContext);
-
-  return appState;
 }
