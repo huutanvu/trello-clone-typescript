@@ -1,22 +1,17 @@
 import React from "react";
+import { useAppState } from "../contexts/AppStateContext";
 import { AddNewItem } from "./AddNewItem";
 import { AppContainer } from "./AppContainer";
-import { Card } from "./Card";
 import { Column } from "./Column";
 
 export const Board = () => {
+  const { state } = useAppState();
   return (
     <AppContainer>
-      <Column columnTitle="To Do">
-        <Card text="A sample TODO card"></Card>
-      </Column>
-      <Column columnTitle="In Progress">
-        <Card text="A sample In Progress card"></Card>
-      </Column>
-      <Column columnTitle="Done">
-        <Card text="A Done card"></Card>
-      </Column>
-      <AddNewItem toggleButtonText="+ Add another list" onAdd={console.log}/>
+      {state.lists.map((list, i) => {
+        return <Column columnTitle={list.text} key={list.id} index={i} />;
+      })}
+      <AddNewItem toggleButtonText="+ Add another list" onAdd={console.log} />
     </AppContainer>
   );
 };
